@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=.5">
+
+        <script src="/_3rd/jquery/test/data/jquery-1.9.1.js"></script>
+        <script src="/_3rd/bootstrap/dist/js/bootstrap.min.js"></script>
+        <link href="/_3rd/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+        
+
+        <script src="/js/support.js"></script>
+
+    <title>Библиомост: Телемост с авторами</title>
+<style>
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+</style>
+</head>
+<body style='background:#fff;padding-left:1em'>
+
+<div style='margin:1em 0 5em 0;text-align:center;display:flex;width:100%;'>
+	<span style='width:33%;text-align:left;'>
+        <img src='/img/tma/0-logo.BIB.png' width=50%><br>
+        <img src='/img/tma/0-logo.DCC.png' width=50% style='margin-left:.5em'>
+    </span>
+    <span style='width:33%;text-align:center;'><img src='/img/tma/0-logo.BM.png' width=40%></span>
+
+	<span style='width:33%;text-align:right;margin-right:1em'>
+
+
+    <a href='#' style='display:hidden' id='btnNewpass' data-toggle="modal" data-dismiss="modal" data-target="#modalNewPass"></a>
+
+	</span>
+
+</div>
+
+  <div class="modal" id="modalAccount" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+      <form role="form" id='formAccount' action='/' method='post'>
+        <div class="modal-body" style="padding:40px 50px;">
+
+          <div class="form-group">
+            <label>Заполните профиль:</label>
+          </div>
+
+                      <div class="form-group">
+              <input type="text" disabled='disabled' class="form-control" value=''>
+            </div>
+          
+          <div class="form-group">
+            <label for="name1">Имя</label>
+            <input type="text" class="form-control" name="name1" value='' placeholder="Имя">
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="name2">Фамилия</label>
+            <input type="text" class="form-control" name="name2" value='' placeholder="Фамилия">
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="phone">Телефон</label>
+            <input type="text" class="form-control" name="phone" value='' placeholder="Телефон">
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="dept">Организация</label>
+            <input type="text" class="form-control" name="dept" value='' placeholder="Организация">
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="department">Подробно (Адрес)</label>
+            <textarea class="form-control" name="department" placeholder="Подробно"></textarea>
+          </div>
+
+        </div>
+        <input type="hidden" name="logon" value='account'>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success pull-right"><span class="glyphicon glyphicon-off"></span> Сохранить</button>
+          <button class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Отмена</button>
+        </div>
+      </form>
+      </div>
+      
+    </div>
+  </div> 
+
+  <div class="modal" id="modalLogin" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+      <form role="form" id='formLogin' action='/' method='post'>
+        <div class="modal-body" style="padding:40px 50px;">
+            <div class="form-group">
+              <label>
+                                  Вход:
+                              </label>
+            </div>
+
+
+        <div class="row">
+          <div class="col-xs-4" style='text-align:center'>
+            <br>
+<a href='https://oauth.vk.com/authorize?client_id=6722315&scope=offline&state=profile&redirect_uri=http%3A%2F%2Fbibliomost.ru%2FsocialCB%3Ftype%3D1&response_type=code&revoke=1'><img src='https://vk.com/images/safari_152.png' style='width:4em;height:4em;'></a><br>          </div>
+
+          <div class="col-xs-8">
+            <div class="form-group">
+              <label for="usrname"><span class="glyphicon glyphicon-user"></span> Емейл</label>
+              <input type="text" id='bindEmail' class="form-control" name="user" placeholder="Введите емейл" tabindex=1>
+              <a href="#" id='regBtn' data-toggle="modal" data-dismiss="modal" data-target="#modalRegister"><h4><span class="glyphicon glyphicon-plus"></span> Новый пользователь</h4></a>
+            </div>
+            <br>
+            <div class="form-group">
+              <label for="psw"><span class="glyphicon glyphicon-eye-open"></span> Пароль</label>
+              <input type="password" class="form-control" name="passw" placeholder="Введите пароль" tabindex=2>
+              <a href="#" data-toggle="modal" data-dismiss="modal" data-target="#modalRestorePass"><h5>Забыли пароль?</h5></a>
+            </div>
+          </div>
+        </div>
+
+        </div>
+        <input type="hidden" name="logon" value='in'>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success pull-right" tabindex=3><span class="glyphicon glyphicon-off"></span> Войти</button>
+          <button class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Отмена</button>
+        </div>
+      </form>
+      </div>
+      
+    </div>
+  </div> 
+
+  <div class="modal" id="modalNewPass" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+      <form role="form" id='formNewPass' action='/' method='post'>
+        <div class="modal-body" style="padding:40px 50px;">
+          <div class="form-group">
+            <label>Установка нового пароля:</label>
+          </div>
+
+          <div class="form-group">
+            <input type="password" class="form-control" name="passw" placeholder="Придумайте новый пароль">
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" name="pass2" placeholder="Введите пароль еще раз">
+          </div>
+          <input type="hidden" class="form-control" name="hash" value=''>
+          <input type="hidden" class="form-control" name="email" value=''>
+        </div>
+        <input type="hidden" name="logon" value='passSet'>
+        
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success pull-right" id='btnNewPass'><span class="glyphicon glyphicon-off"></span> Установить</button>
+          <button class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Отмена</button>
+        </div>
+      </form>
+      </div>
+      
+    </div>
+  </div> 
+
+  <div class="modal" id="modalRegister" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+      <form role="form" id='formRegister' action='/' method='post'>
+        <div class="modal-body" style="padding:40px 50px;">
+          <div class="form-group">
+            <label>Регистрация:</label>
+          </div>
+
+          <div class="form-group">
+            <label for="usrnameR"><span class="glyphicon glyphicon-user"></span> Емейл</label>
+            <input type="text" class="form-control" name="user" placeholder="Введите емейл">
+          </div>
+          <br>
+          <div class="form-group">
+            <label for="pswR"><span class="glyphicon glyphicon-eye-open"></span> Пароль</label>
+            <input type="password" class="form-control" name="passw" placeholder="Придумайте пароль">
+          </div>
+          <div class="form-group">
+            <input type="password" class="form-control" name="pass2" placeholder="Введите пароль еще раз">
+          </div>
+        </div>
+        <input type="hidden" name="logon" value='register'>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success pull-right" id='btnRegister'><span class="glyphicon glyphicon-off"></span> Зарегистрировать</button>
+          <button class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Отмена</button>
+        </div>
+      </form>
+      </div>
+      
+    </div>
+  </div> 
+
+  <div class="modal" id="modalRestorePass" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+      <form role="form" id='formRestorePass' action='/' method='post'>
+        <div class="modal-body" style="padding:40px 50px;">
+          <div class="form-group">
+            <label>Восстановление пароля:</label>
+          </div>
+          
+          <div class="form-group">
+            <label for="usrnameR"><span class="glyphicon glyphicon-user"></span> Емейл</label>
+            <input type="text" class="form-control" name="restoreMail" placeholder="Введите емейл">
+          </div>
+        </div>
+        <input type="hidden" name="logon" value='passReq'>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success pull-right" id='btnRestorePass'><span class="glyphicon glyphicon-off"></span> Восстановить</button>
+          <button class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Отмена</button>
+        </div>
+      </form>
+      </div>
+      
+    </div>
+  </div> 
+
+  <div class="modal" id="modalAlert" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body form-horizontal" style="padding:40px 50px;">
+
+            <div>
+              <span id="modalAlertIcon"></span>
+              <span style='font-weight:bold;' id="modalAlertTitle"></span>
+              <br><br>
+            </div>
+            <div class="form-group" id="modalAlertMsg" style="padding:0px 50px;"></div>
+
+          </div>
+        <div class="modal-footer">
+          <button id="modalAlertAccept" type="submit" class="btn btn-success pull-right" data-dismiss="modal" style='display:none'><span class="glyphicon glyphicon-off"></span> <span id="modalAlertAcceptText">Подтвердить</span></button>
+
+          <button id="modalAlertClose" class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> <span id="modalAlertCloseText">Закрыть</span></button>
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+
+
+  <div class="modal" id="modalAbout" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body form-horizontal" style="padding:40px 50px;">
+
+            <div>
+              <span id="modalAboutIcon"><img src='/img/tma/0-logo.BM.png' style='width:3em'></span>
+              <span style='font-weight:bold; margin-left:1em' id="modalAboutTitle">Библиомост</span>
+              <br><br>
+            </div>
+            <div class="form-group" id="modalAboutMsg" style="padding:0px 50px;">
+              Библиомост - аггрегатор телемостов и видеоконференций, проходящих в библиотеках.<br><br>
+              Все наименования, логитипы и иные объекты авторского права<br>
+              относятся к участникам телемостов и принадлежат их правообладателям.
+            </div>
+
+          </div>
+        <div class="modal-footer">
+          <button id="modalAlertAccept" class="btn btn-success pull-right" data-dismiss="modal"><span class="glyphicon glyphicon-off"></span> <span id="modalAlertAcceptText">Закрыть</span></button>
+        </div>
+      </div>
+      
+    </div>
+  </div> 
+  <div class="modal" id="modalBind" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+      <form role="form" id='formRestorePass' action='/' method='post'>
+        <div class="modal-body" style="padding:40px 50px;">
+          <div class="form-group">
+            <label>Регистрация на телемост:</label>
+          </div>
+          
+          <div class="form-group">
+            <label for="email"><span class="glyphicon glyphicon-user"></span> Емейл (обязательно)</label>
+            <input type="text" name="email" class="form-control" id="bindMail" placeholder="Введите емейл" value=''>
+          </div>
+          <div class="form-group">
+            <label for="phone"><span class="glyphicon glyphicon-user"></span> Телефон</label>
+            <input type="text" name="phone" class="form-control" id="bindPhone" placeholder="Введите телефон" value=''>
+          </div>
+        </div>
+        <input type="hidden" name="join" value=1>
+        <input type="hidden" name="id" id="bindId">
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success pull-right" id='btnRestorePass'><span class="glyphicon glyphicon-off"></span> Зарегистрироваться</button>
+          <button class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Отмена</button>
+        </div>
+      </form>
+      </div>
+      
+    </div>
+  </div> 
+  <div class="modal" id="modalAdd" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+      <form role="form" id='formRestorePass' action='/' method='post'>
+        <div class="modal-body" style="padding:40px 50px;">
+          <div class="form-group">
+            <label>Добавить телемост:</label>
+          </div>
+          
+          <div class="form-group">
+            <label for="name">Имя гостя</label>
+            <input type="text" name="name" class="form-control" id="bindName">
+          </div>
+          <div class="row">
+            <div class="col-xs-6">
+              <div class="form-group">
+                <label for="date">Дата</label>
+                <input type="date" name="date" class="form-control">
+              </div>
+            </div>
+            <div class="col-xs-3">
+              <div class="form-group">
+                <label for="timeh">Часы</label>
+                <input type="number" name="timeh" class="form-control">
+              </div>
+            </div>
+            <div class="col-xs-3">
+              <div class="form-group">
+                <label for="timem">Минуты</label>
+                <input type="number" name="timem" class="form-control">
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="link">Ссылка на трансляция</label>
+            <input type="url" name="link" class="form-control" id="bindLink">
+          </div>
+          <div class="form-group">
+            <label for="seats">Максимум участников</label>
+            <input type="number" name="seats" class="form-control" id="bindSeats" value=20>
+          </div>
+        </div>
+        <input type="hidden" name="add" value=1>
+
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-success pull-right" id='btnRestorePass'><span class="glyphicon glyphicon-off"></span> Добавить</button>
+          <button class="btn btn-danger btn-default pull-left" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span> Отмена</button>
+        </div>
+      </form>
+      </div>
+      
+    </div>
+  </div> 
+<center>
+
+<a href='https://www.youtube.com/playlist?list=PLxilYksnXjJpkdBbvWze4QOHOdibjHr4a' target='_new' style='padding:0 1em' class="btn btn-lg">
+	<span class='text-success'>Архив</span>
+</a>
+
+<br><br><h4 class='' style='width:75%'>
+Дорогие друзья, эфиры канала  БиблиоМост ушли на летние каникулы и возобновятся в сентябре.
+Но мы, если  честно, очень скучаем по общению с вами. Поэтому, не теряя времени, готовим новые интересные встречи. Вы сможете встретиться с популярными радиоведущими, актерами и писателями. Анонсы осенних эфиров появятся в августе.
+</h4>
+
+</center>
+<br>
+
+<div style='text-align:center;'>
+<table><tr>
+	<td rowspan=2 width=50%></td>
+	<td rowspan=2 style='position:relative'><img src='/img/tma/1-bg-names.png'>
+		<span style='position:absolute;top:0;left:0;width:300px;font-size:1.25em;text-align:left;margin:.5em;z-index:1'>
+		<div style='font-size:.125em'><br></div>
+		<div style='color:#f48120;'>Сентябрь<br><br></div>
+		<div style='font-size:.75em'><br></div>
+		<div style='color:#fff;'>Наринэ<br>Абгарян</div>
+		</span>
+	</td>
+	<td rowspan=2>
+		<span style='position:relative'>
+			<img src='/img/tma/2-bg-photo.abgaryan.png'>
+					</span>
+	</td>
+	<td><span src='/img/tma/3-bg-text.png' style='width:400px; height:104px; background:#eee; display:block; text-align:left; color:#ccc; padding:1em; font-size:1.2em'>
+				пресс-релиз
+		<br>
+		афиша
+	</span></td>
+	<td rowspan=2>
+
+			</td>
+	<td rowspan=2 width=50%></td>
+</tr><tr>
+	<td><table width=100%><tr>
+<td style='padding:0 1em;'>
+			<a href='http://cbssao.ru/' target='cbssao'>
+	
+	<img src='/img/tma/3-part.cbssao.png'>
+
+	</a></td>	<td width=100%></td></tr></table></td>
+</tr></table>
+</div>
+
+<div style='height:48px'></div>
+<br><br>
+<br>
+<div style='text-align:center'><a href='#' data-toggle="modal" data-target="#modalAbout">о сайте</a></div>
+<br>
+</body>
+
+<script>
+relaxURL('/');
+	
+
+</script>
+
+</html>
+
+
+<!-- FiKrame,0.023 -->
